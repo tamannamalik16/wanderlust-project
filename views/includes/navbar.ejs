@@ -1,0 +1,201 @@
+<style>
+  .brand-logo img {
+    height: 3rem;
+    width: auto;
+    font-weight: 900;
+    border-radius: 50%;
+    background-color: #fe424d !important;
+  }
+  .search-box {
+    display: flex;
+    z-index: 1000;
+  }
+  .btn-search {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
+
+
+  .btn-search:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+  .btn-search i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .inp-search{
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 0.9rem;
+  }
+  .signup, .login , .logout {
+    color: #fe424d !important;
+  }
+  .search-icon {
+    display: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border: 1px solid grey;
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
+  }
+  .hamburger:hover {
+    background-color: rgba(156, 154, 154, 0.3);
+  }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 1rem 0.5rem;
+    z-index: 100;
+  }
+  .dropdown-menu a:hover {
+    background-color: rgba(159, 200, 241, 0.3);
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);  /* blur effect */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+  }
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  @media (max-width:955px) {
+    .navRight {
+      display: none;
+    }
+    .hamburger {
+      display: block;
+    }
+    .logo {
+      display: none;
+    }
+    .search-icon {
+      display: block;
+      background-color: rgba(168, 165, 165, 0.3);
+      border-radius: 50%;
+      font-size: 1.25rem;
+      padding: 0.3rem 0.6rem;
+    }
+    .search-icon:hover {
+      background-color: rgba(168, 165, 165, 0.5);
+    }
+    .search-icon:active {
+      background-color: rgba(168, 165, 165, 0.5);
+      transform: scale(0.95);
+    }
+    .dropdown-menu.show {
+      display: block;
+    } 
+    .search-box {
+      display: flex;
+      position: absolute;
+      top: 5rem;
+      left: 60px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 1rem;
+      padding: 3rem 2rem;
+      max-height: 0;
+      opacity: 0;   
+      padding: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+    }
+    .search-box.active {
+      max-height: 200px; /* enough space for input */
+      opacity: 1;
+      padding: 1rem 0.5rem;
+  }
+
+  }
+  @media (min-width: 500px) and (max-width: 955px) {
+    .search-box {
+      width: 600px;
+      left: 50%;
+      transform: translateX(-50%);
+      right: auto;
+    }
+    .logo {
+      display: block;
+    }
+
+  }
+
+
+</style>
+<nav class="navbar navbar-expand-md border-bottom bg-body-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand brand-logo" href="/listings"><img src="/assets/icon.jpeg" alt="Airbnb Logo"></a>
+
+      <div class="navbar-nav">
+
+        <a class="nav-link logo" href="/listings?category=trending">Explore</a>
+        <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+      </div>
+      
+      <div class="navbar-nav ms-auto">
+        <div class="search-box">
+        <input class="form-control me-2 inp-search" type="text" placeholder="Search destination" aria-label="Search"/>
+        <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </div>
+        
+      </div>
+
+      
+      <div class="navbar-nav navRight ms-auto">
+        <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        <% if(!currUser) {  %>
+          <a class="nav-link signup"  href="/signup"><b>Sign up</b></a>
+          <a class="nav-link login" href="/login"><b>login</b></a>
+
+        <% } %>
+        <% if(currUser) { %>
+          <a class="nav-link logout" href="/logout"><b>Log out</b></a>
+        <% } %>
+      </div>
+      <!-- hamberger menu -->
+      <div class="hamburger">
+          <i class="fa-solid fa-bars"></i>
+      </div>
+
+       <!-- dropdown menu for small screen -->
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/listings/new">Airbnb your home</a>
+        <% if(!currUser) {  %>
+          <a class="dropdown-item" href="/signup"><b>Sign up</b></a>
+          <a class="dropdown-item" href="/login"><b>login</b></a>
+
+        <% } %>
+        <% if(currUser) { %>
+          <a class="dropdown-item" href="/logout"><b>Log out</b></a>
+        <% } %>
+      </div>
+  </div>
+</nav>
+
+<div class="overlay"></div>
